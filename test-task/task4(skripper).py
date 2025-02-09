@@ -16,7 +16,6 @@ for r in range(t):
     respone = requests.get(url)
     soup = BeautifulSoup(respone.text, "html.parser")
     all_n= soup.find_all('div',class_='product-wrapper card-body')
-    Page=[]
     for i in all_n:
            a = i.find('a', class_="title").get('title')
            b = i.find('p', class_="description card-text").text

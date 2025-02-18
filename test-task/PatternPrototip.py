@@ -1,7 +1,7 @@
 import copy
 
 
-class Adress:
+class adress:
     def __init__(self,street_adress,city,country):
         self.street_adress=street_adress
         self.city=city
@@ -18,7 +18,7 @@ class Person:
 
 
 
-oleg= Person('Oleg',Adress("Проспект Лютиков, д.5,кв 27","Киев","Украина"))
+oleg= Person('Oleg',adress("Проспект Лютиков, д.5,кв 27","Киев","Украина"))
 print(oleg)
 olga=copy.deepcopy(oleg)
 olga.name='Olga'

@@ -3,42 +3,43 @@ from datetime import timedelta
 
 
 
-def Rozklad(Days,Work_Day,Rest_Day,Start_day):
-    y=Start_day
+def schedule(day, work_day, rest_day, start_day):
+    day_count=start_day
     f=True
-    a=1
-    b=1
+    work_day_count=1
+    rest_day_count=1
     List=[]
-    for i in range(Days):
+    for i in range(day):
         if f==True :
-             List.append(y)
-             if a==Work_Day :
-                a=1
+             List.append(day_count)
+             if work_day_count==work_day :
+                work_day_count=1
                 f=False
              if f==True:
-                 a=a+1
+                 work_day_count=work_day_count+1
 
         else:
-           if b==Rest_Day:
+           if rest_day_count==rest_day:
                f=True
-               b=1
+               rest_day_count=1
            if f == False:
-                   b = b + 1
-        y = y + timedelta(days=1)
+               rest_day_count = rest_day_count + 1
+        day_count = day_count + timedelta(days=1)
 
 
 
     return List
 
-date_str=(input("Введите начальную дату dd/mm/yyyy"))
-v='21/03/2025'
-start=datetime.datetime.strptime(date_str,'%d/%m/%Y')
-Day=int(input("Введите общее количество дней "))
-Day_W=int(input("Введите количество дней работы "))
-Day_R=int(input("Введите общее количество дней отдыха "))
-s=Rozklad(Day,Day_W,Day_R,start)
-print(s)
+schedule_data={
+    "days":5,
+    "work_days":2,
+    "rest_day":1,
+    "start_date":datetime.datetime(2020,1,30)
+              }
 
+schedule_rezult=schedule(schedule_data.get("days"),schedule_data.get("work_days"),schedule_data.get("rest_day"),schedule_data.get("start_date"))
+
+print(schedule_rezult)
 
 
 

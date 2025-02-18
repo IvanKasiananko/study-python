@@ -3,32 +3,33 @@ import requests
 import asyncio
 
 
-async def nomer(info:dict,id):
-    t = None
+async def number(info:dict,id):
+    number_user = None
 
     for i in range(len(info)):
         r = info[i]
 
         if r['id'] == id:
-            t = r
+            number_user = r
             break
 
 
 
-    return t
+    return number_user
 
 async def comment(info,id):
 
-    a=[]
+    comment_list=[]
 
     for i in range(len(info)):
         r = info[i]
 
         if r['user_id'] == id:
-            a.append('Заголовок  '+r['title']+' Тело '+r['body'])
+            comment_list.append('Заголовок  '+r['title']+' Тело '+r['body'])
 
 
-    return a
+    return comment_list
+
 
 
 app = FastAPI()
@@ -45,18 +46,18 @@ async def read_item(path,item_id:int):
     info_post=request_post.json()
     if path =='user':
         # выборка по юзеру
-        result = await nomer(info_user, item_id)
-        Viborka = "Выборка по номеру юзера"
+        result = await number(info_user, item_id)
+        sample = "Выборка по номеру юзера"
 
     elif path =='post':
         # выборка сообщений по юзеру
         result = await comment(info_post, item_id)
-        Viborka = "Выборка собщений по номеру юзера"
+        sample = "Выборка собщений по номеру юзера"
 
     else:
         #Полная выборка всех юзеров
         result=info_user
-        Viborka = "Список всех юзеров"
-    return {Viborka: result}
+        sample = "Список всех юзеров"
+    return {sample: result}
 
 

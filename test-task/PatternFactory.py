@@ -1,7 +1,7 @@
 from math import *
 
 
-class Point:
+class point:
     def __init__(self,x,y):
         self.x=x
         self.y=y
@@ -10,14 +10,14 @@ class Point:
 
 @staticmethod
 def new_decart_point(x,y):
-    return Point(x,y)
+    return point(x,y)
 
 @staticmethod
 def new_polar_point(rho,theta):
-    return Point(rho*cos(theta),rho*sin(theta))
+    return point(rho*cos(theta),rho*sin(theta))
 
 if __name__=='__main__':
-    Dec = new_decart_point(2, 3)
-    Pol = new_polar_point(1, 2)
-    print(Dec, Pol)
+    decart = new_decart_point(2, 3)
+    polar = new_polar_point(1, 2)
+    print(decart, polar)
 

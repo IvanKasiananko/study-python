@@ -1,3 +1,5 @@
+import time
+
 import pygame
 from pygame.examples.go_over_there import clock, screen
 from pygame.examples.moveit import WIDTH, HEIGHT
@@ -114,6 +116,8 @@ text3 = font.render("Нажмите 'y',что бы сохранить ", True, 
 text4 = font.render(" или любую клавишу для продолжения", True, [255, 255, 255])
 text5 = font.render("Нажмите 'n',для новой игры ", True, [255, 255, 255])
 text6 = font.render(" или любую клавишу для выхода", True, [255, 255, 255])
+font = pygame.font.Font(None, 100)
+text7 = font.render("ПОБЕДА", True, [255, 255, 255])
 
 game_surface=pygame.Surface(RES)
 surface=pygame.display.set_mode((WIDTH,HEIGHT))
@@ -136,6 +140,7 @@ else:
 
 wh_1=1
 save_in_game=True
+win=False
 surface.blit(new_image, (start_x, start_y))
 Cell(0,0).create_maze(Labirinth,surface)
 
@@ -147,6 +152,10 @@ while wh_1==1:
     while wh_1==1:
 
         for i in pygame.event.get():
+            if Dog().dog_cell(start_x, start_y)==(0,0):
+                win=True
+                break
+
             if (Dog().dog_cell(start_x, start_y) in Lose_cell) and save_flag==False:
                 Game_over = True
                 dead_end=True
@@ -201,9 +210,17 @@ while wh_1==1:
             surface.blit(text4, textpos)
             wh_1=2
         else:
-            surface.fill((0, 0, 0))
-            Cell(0, 0).create_maze(Labirinth, surface)
-            surface.blit(new_image, (start_x, start_y))
+            if win==True:
+                surface.fill((56, 50, 31))
+                textpos = (140, 150)
+                surface.blit(text7, textpos)
+                wh_1=3
+                pygame.display.flip()
+                time.sleep(2)
+            else:
+                surface.fill((0, 0, 0))
+                Cell(0, 0).create_maze(Labirinth, surface)
+                surface.blit(new_image, (start_x, start_y))
 
         pygame.display.flip()
    # wh_1=2
@@ -228,6 +245,7 @@ while wh_1==1:
     textpos = (120, 400)
     surface.blit(text6, textpos)
     pygame.display.flip()
+    win == False
     while wh_1==3:
 
         for i in pygame.event.get():

@@ -1,4 +1,5 @@
 import time
+import json
 
 import pygame
 
@@ -127,13 +128,13 @@ pygame.display.set_caption("Шарик и лабиринт")
 dog_face=pygame.image.load('foni.png').convert_alpha()
 new_image=pygame.transform.scale(dog_face,(30,30))
 
-with open('save.txt', 'r') as file1:
-    save = file1.read()
+with open('save.json', 'r') as file1:
+    save = json.load(file1)
 
-if save!='':
-    list_save=save.split(',')
-    start_x = int(list_save[0])
-    start_y = int(list_save[1])
+if save!= {}:
+
+    start_x = save["start_x"]
+    start_y = save["start_y"]
     save_flag=True
 else:
     start_x = 555
@@ -141,7 +142,6 @@ else:
 
 wh_1=1
 save_in_game=True
-win=False
 surface.blit(new_image, (start_x, start_y))
 Cell(0,0).create_maze(Labirinth,surface)
 
@@ -150,6 +150,7 @@ clock=pygame.time.Clock()
 while wh_1==1:
     Wall = False
     dead_end = False
+    win=False
     while wh_1==1:
 
         for i in pygame.event.get():
@@ -209,6 +210,7 @@ while wh_1==1:
             surface.blit(text3, textpos)
             textpos = (120, 400)
             surface.blit(text4, textpos)
+            save_flag=True
             wh_1=2
         else:
             if win==True:
@@ -231,13 +233,15 @@ while wh_1==1:
                 sys.exit()
             if i.type == pygame.KEYDOWN:
                 if i.key==pygame.K_y:
-                    with open('save.txt', 'w') as file1:
-                        file1.write(f"{start_x},{start_y}")
+                    with open('save.json', 'w') as file1:
+                        savejson={"start_x":start_x,"start_y":start_y}
+                        file1.write(json.dumps(savejson))
                     wh_1=3
 
                 else:
-                    with open('save.txt', 'w') as file1:
-                        file1.write("")
+                    with open('save.json', 'w') as file1:
+                        savejson={}
+                        file1.write(json.dumps(savejson))
                     save_in_game=False
                     wh_1=3
     surface.fill((56, 50, 31))
@@ -255,7 +259,7 @@ while wh_1==1:
             if i.type == pygame.KEYDOWN:
                 if i.key==pygame.K_n:
                     wh_1 = 1
-                    if save_in_game==False:
+                    if save_in_game==False or win==True:
                         start_x = 555
                         start_y = 555
                         save_in_game=True

@@ -94,9 +94,7 @@ class Dog:
         cell_x = lab_cell[0]
         cell_y=lab_cell[1]
         dog_cell_now = Cell(0, 0).dec_to_bin(Labirinth[cell_y][cell_x])
-        print(dog_cell_now)
         if dog_cell_now[direct] == '1':
-            print("Стена")
             g_over = True
             return g_over
 
@@ -248,4 +246,3 @@ while wh_1==1:
 
 
 
-#input(f"Записать игру y/n {a}")

@@ -1,8 +1,7 @@
 import time
 
 import pygame
-from pygame.examples.go_over_there import clock, screen
-from pygame.examples.moveit import WIDTH, HEIGHT
+
 
 RES = WIDTH, HEIGHT =600,600
 TILE=60
@@ -106,6 +105,7 @@ class Dog:
 
 FPS=60
 pygame.init()
+
 font = pygame.font.Font(None, 100)
 text = font.render("Game over!", True, [255, 255, 255])
 font = pygame.font.Font(None, 50)
@@ -122,6 +122,7 @@ text7 = font.render("ПОБЕДА", True, [255, 255, 255])
 game_surface=pygame.Surface(RES)
 surface=pygame.display.set_mode((WIDTH,HEIGHT))
 pygame.display.set_caption("Шарик и лабиринт")
+
 
 dog_face=pygame.image.load('foni.png').convert_alpha()
 new_image=pygame.transform.scale(dog_face,(30,30))

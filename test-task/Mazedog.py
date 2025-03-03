@@ -112,6 +112,7 @@ text = font.render("Game over!", True, [255, 255, 255])
 font = pygame.font.Font(None, 50)
 text1 = font.render("Вы ударились о стену", True, [255, 255, 255])
 text2 = font.render("Вы зашли в тупик", True, [255, 255, 255])
+text8 = font.render("Шарик испугался", True, [255, 255, 255])
 font = pygame.font.Font(None, 30)
 text3 = font.render("Нажмите 'y',что бы сохранить ", True, [255, 255, 255])
 text4 = font.render(" или любую клавишу для продолжения", True, [255, 255, 255])
@@ -119,6 +120,7 @@ text5 = font.render("Нажмите 'n',для новой игры ", True, [255
 text6 = font.render(" или любую клавишу для выхода", True, [255, 255, 255])
 font = pygame.font.Font(None, 100)
 text7 = font.render("ПОБЕДА", True, [255, 255, 255])
+
 
 game_surface=pygame.Surface(RES)
 surface=pygame.display.set_mode((WIDTH,HEIGHT))
@@ -135,13 +137,16 @@ if save!= {}:
 
     start_x = save["start_x"]
     start_y = save["start_y"]
+    Dog_back=[(33,33),(start_x,start_y)]
     save_flag=True
 else:
     start_x = 555
     start_y = 555
+    Dog_back = [(33, 33), (9, 9)]
 
 wh_1=1
 save_in_game=True
+
 surface.blit(new_image, (start_x, start_y))
 Cell(0,0).create_maze(Labirinth,surface)
 
@@ -151,9 +156,15 @@ while wh_1==1:
     Wall = False
     dead_end = False
     win=False
+    fear=False
     while wh_1==1:
 
         for i in pygame.event.get():
+            if Dog().dog_cell(start_x, start_y)==Dog_back[-2]:
+                print("Струсил")
+                fear=True
+                break
+            print(Dog_back[-1],Dog().dog_cell(start_x, start_y))
             if Dog().dog_cell(start_x, start_y)==(0,0):
                 win=True
                 break
@@ -171,22 +182,27 @@ while wh_1==1:
                 if i.key == pygame.K_LEFT:
                     Wall = Dog().move_dog(Dog().dog_cell(start_x, start_y), 0)
                     if not Wall:
+                        Dog_back.append(Dog().dog_cell(start_x, start_y))
                         start_x -= 60
+
 
                 elif i.key == pygame.K_RIGHT:
                     Wall = Dog().move_dog(Dog().dog_cell(start_x, start_y), 2)
                     if not Wall:
+                        Dog_back.append(Dog().dog_cell(start_x, start_y))
                         start_x += 60
 
                 else:
                     if i.key == pygame.K_UP:
                         Wall = Dog().move_dog(Dog().dog_cell(start_x, start_y), 1)
                         if not Wall:
+                            Dog_back.append(Dog().dog_cell(start_x, start_y))
                             start_y -= 60
 
                     elif i.key == pygame.K_DOWN:
                         Wall = Dog().move_dog(Dog().dog_cell(start_x, start_y), 3)
                         if not Wall:
+                           Dog_back.append(Dog().dog_cell(start_x, start_y))
                            start_y += 60
         if Wall == True :
             surface.fill((56, 50, 31))
@@ -220,6 +236,20 @@ while wh_1==1:
                 wh_1=3
                 pygame.display.flip()
                 time.sleep(2)
+            elif fear==True:
+                surface.fill((56, 50, 31))
+                textpos = (100, 250)
+                surface.blit(text, textpos)
+
+                textpos = (160, 150)
+                surface.blit(text8, textpos)
+                textpos = (160, 350)
+                surface.blit(text3, textpos)
+                textpos = (110, 400)
+                surface.blit(text4, textpos)
+                wh_1 = 2
+
+
             else:
                 surface.fill((0, 0, 0))
                 Cell(0, 0).create_maze(Labirinth, surface)
@@ -259,7 +289,9 @@ while wh_1==1:
             if i.type == pygame.KEYDOWN:
                 if i.key==pygame.K_n:
                     wh_1 = 1
+                    Dog_back = [(33, 33), (44, 44), (start_x // TILE, start_y // TILE)]
                     if save_in_game==False or win==True:
+
                         start_x = 555
                         start_y = 555
                         save_in_game=True

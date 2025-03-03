@@ -25,7 +25,6 @@ class Cell:
     def __init__(self,x,y):
         self.x=x
         self.y=y
-        self.visited=False
         self.thickness=4
 
     def dec_to_bin(self,dec):

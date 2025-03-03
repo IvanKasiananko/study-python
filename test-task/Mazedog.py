@@ -6,7 +6,6 @@ import pygame
 
 RES = WIDTH, HEIGHT =600,600
 TILE=60
-# cols,rows=WIDTH//TILE,HEIGHT//TILE
 Labirinth=((5,6,12,5,7,12,6,13,5,6),
            (12,3,9,6,12,2,9,5,5,3),
            (9,4,5,1,2,10,13,5,5,6),
@@ -161,10 +160,8 @@ while wh_1==1:
 
         for i in pygame.event.get():
             if Dog().dog_cell(start_x, start_y)==Dog_back[-2]:
-                print("Струсил")
                 fear=True
                 break
-            print(Dog_back[-1],Dog().dog_cell(start_x, start_y))
             if Dog().dog_cell(start_x, start_y)==(0,0):
                 win=True
                 break

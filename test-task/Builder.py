@@ -7,6 +7,7 @@ class Phone:
     def about_phone(self):
         return self.date
 
+
     def append_date(self,string:str):
         self.date+=string
 

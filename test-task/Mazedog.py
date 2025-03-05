@@ -118,6 +118,8 @@ text5 = font.render("Нажмите 'n',для новой игры ", True, [255
 text6 = font.render(" или любую клавишу для выхода", True, [255, 255, 255])
 font = pygame.font.Font(None, 100)
 text7 = font.render("ПОБЕДА", True, [255, 255, 255])
+font = pygame.font.Font(None, 30)
+text9 = font.render("Загрузить сохранение?Нажмите 'y' ", True, [255, 255, 255])
 
 
 game_surface=pygame.Surface(RES)
@@ -130,13 +132,30 @@ new_image=pygame.transform.scale(dog_face,(30,30))
 
 with open('save.json', 'r') as file1:
     save = json.load(file1)
-
 if save!= {}:
+    sv=1
+    surface.fill((56, 50, 31))
+    textpos = (100, 250)
+    surface.blit(text9, textpos)
+    pygame.display.flip()
+    while sv==1:
+        for i in pygame.event.get():
+            if i.type == pygame.QUIT:
+                sys.exit()
+            if i.type == pygame.KEYDOWN:
+                if i.key==pygame.K_y:
+                    start_x = save["start_x"]
+                    start_y = save["start_y"]
+                    Dog_back = [(33, 33), (start_x, start_y)]
+                    save_flag = True
+                    sv=3
+                else:
+                    start_x = 555
+                    start_y = 555
+                    Dog_back = [(33, 33), (9, 9)]
+                    sv=3
 
-    start_x = save["start_x"]
-    start_y = save["start_y"]
-    Dog_back=[(33,33),(start_x,start_y)]
-    save_flag=True
+
 else:
     start_x = 555
     start_y = 555

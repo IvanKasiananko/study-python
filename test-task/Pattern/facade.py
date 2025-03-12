@@ -130,13 +130,13 @@ class Client(IClient):
         return self.name
 
 
-if __name__ == "__main__":
-    pizzeria = PizzeriaFacade()
-    client1 = Client("Иван")
-    client2 = Client("Александр")
-    client1.request_menu(pizzeria.get_menu(MenuType.MIXED))
-    pizzeria.take_order(client1)
-    client2.request_menu(pizzeria.get_menu(MenuType.VEGAN))
-    pizzeria.take_order(client2)
-    client1.eating_food()
-    client2.eating_food()
+
+pizzeria = PizzeriaFacade()
+client1 = Client("Иван")
+client2 = Client("Александр")
+client1.request_menu(pizzeria.get_menu(MenuType.MIXED))
+pizzeria.take_order(client1)
+client2.request_menu(pizzeria.get_menu(MenuType.VEGAN))
+pizzeria.take_order(client2)
+client1.eating_food()
+client2.eating_food()

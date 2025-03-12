@@ -75,17 +75,17 @@ class OvenAdapter(ICelsiusOven):
         self.stove.set_temperature(new_temperature_stove)
         self.temperature = t
 
-if __name__ == "__main__":
-    def print_temperature(stove: ICelsiusOven):
-        print(f"Original temperature = {stove.get_original_temperature()}"
-              f" F")
-        print(f"Celsius temperature = {stove.get_celsius_temperature()}")
 
-    fahrenheit_stove = OriginalOven(32)
-    celsius_stove = OvenAdapter(fahrenheit_stove)
-    print_temperature(celsius_stove)
-    celsius_stove.set_celsius_temperature(180)
-    print("----------------")
-    print("New temperature")
-    print("----------------")
-    print_temperature(celsius_stove)
+def print_temperature(stove: ICelsiusOven):
+    print(f"Original temperature = {stove.get_original_temperature()}"
+              f" F")
+    print(f"Celsius temperature = {stove.get_celsius_temperature()}")
+
+fahrenheit_stove = OriginalOven(32)
+celsius_stove = OvenAdapter(fahrenheit_stove)
+print_temperature(celsius_stove)
+celsius_stove.set_celsius_temperature(180)
+print("----------------")
+print("New temperature")
+print("----------------")
+print_temperature(celsius_stove)

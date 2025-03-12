@@ -22,6 +22,7 @@ class SiteProxy(ISite):
          else:
              page=self.__site.get_page(num)
              self.__cache[num]=page
+         # print(self.__cache)
          return page
 my_site=SiteProxy(Site())
 print(my_site.get_page(1))
